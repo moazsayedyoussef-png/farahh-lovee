@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You, Farahh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2b000b, #590d22, #800f2f);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-y: auto;
+            position: relative;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Hearts Container */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            background-color: rgba(255, 77, 109, 0.7);
+            display: inline-block;
+            transform: rotate(-45deg);
+            animation: floatUp 6s linear infinite;
+            box-shadow: 0 0 15px #ff4d6d;
+        }
+
+        .floating-heart::before,
+        .floating-heart::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: 50%;
+        }
+
+        .floating-heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .floating-heart::after {
+            top: 0;
+            left: 50%;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(-45deg) scale(0.6);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(-45deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Main Card Container */
+        .card {
+            position: relative;
+            z-index: 10;
+            background: rgba(40, 0, 10, 0.65);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 107, 129, 0.3);
+            padding: 35px 40px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255, 0, 64, 0.4), inset 0 0 20px rgba(255, 107, 129, 0.2);
+            max-width: 95%;
+            width: 480px;
+            margin: auto;
+        }
+
+        /* Big Glowing Heart Graphic */
+        .main-heart {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            background: #ff1744;
+            transform: rotate(-45deg);
+            margin: 0 auto 25px auto;
+            animation: heartbeat 1.2s infinite ease-in-out;
+            box-shadow: 0 0 30px #ff1744, 0 0 60px #ff4d6d;
+        }
+
+        .main-heart::before,
+        .main-heart::after {
+            content: "";
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: #ff1744;
+            border-radius: 50%;
+        }
+
+        .main-heart::before {
+            top: -35px;
+            left: 0;
+        }
+
+        .main-heart::after {
+            top: 0;
+            left: 35px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: rotate(-45deg) scale(1); }
+            15% { transform: rotate(-45deg) scale(1.25); }
+            30% { transform: rotate(-45deg) scale(1); }
+            45% { transform: rotate(-45deg) scale(1.15); }
+            60% { transform: rotate(-45deg) scale(1); }
+        }
+
+        /* Typography */
+        h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #ff4d6d, 0 0 30px #ff1744;
+            letter-spacing: 1px;
+        }
+
+        .name {
+            color: #ff758c;
+            font-size: 2.6rem;
+            font-weight: bold;
+            display: block;
+            margin-top: 5px;
+            text-shadow: 0 0 20px #ff4d6d, 0 0 40px #ff1744;
+            animation: glowText 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowText {
+            0% { text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff1744; }
+            100% { text-shadow: 0 0 25px #ffccd5, 0 0 50px #ff4d6d; }
+        }
+
+        p {
+            color: #ffccd5;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+            margin-top: 12px;
+        }
+
+        /* Interactive Question Section */
+        .question-box {
+            margin-top: 25px;
+            border-top: 1px solid rgba(255, 107, 129, 0.3);
+            padding-top: 20px;
+        }
+
+        .question-box label {
+            display: block;
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 107, 129, 0.5);
+            background: rgba(20, 0, 5, 0.6);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            border-color: #ff4d6d;
+            box-shadow: 0 0 15px #ff4d6d;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff1744, #ff4d6d);
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 23, 68, 0.6);
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #ff4d6d;
+        }
+
+        .error-msg {
+            color: #ff8fa3;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            min-height: 20px;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+        }
+
+        /* Success Hidden Message */
+        .success-content {
+            display: none;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-title {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #ff4d6d;
+        }
+
+        /* Click/Tap Heart Burst Effect */
+        .burst-heart {
+            position: absolute;
+            background: #ff4d6d;
+            width: 20px;
+            height: 20px;
+            transform: rotate(-45deg);
+            pointer-events: none;
+            animation: burstAnim 0.8s ease-out forwards;
+            z-index: 100;
+            box-shadow: 0 0 10px #ff1744;
+        }
+
+        .burst-heart::before,
+        .burst-heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .burst-heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .burst-heart::after {
+            top: 0;
+            left: 10px;
+        }
+
+        @keyframes burstAnim {
+            0% {
+                transform: translate(0, 0) rotate(-45deg) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(-45deg) scale(1.4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Hearts -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Main Message Card -->
+    <div class="card" onclick="createHeartBurst(event)">
+        
+        <!-- Default Content -->
+        <div id="mainContent">
+            <div class="main-heart"></div>
+            <h1>I Love You, <span class="name">Farahh</span></h1>
+            <p>You mean the absolute world to me. Every single beat of my heart belongs to you! ❤️</p>
+            
+            <!-- Interactive Question -->
+            <div class="question-box">
+                <label for="answerInput">💕 Who does Moaz love most in the whole world?</label>
+                <div class="input-group">
+                    <input type="text" id="answerInput" placeholder="Type name here...">
+                    <button onclick="checkAnswer(event)">Submit</button>
+                </div>
+                <div class="error-msg" id="errorMsg"></div>
+            </div>
+        </div>
+
+        <!-- Success Screen (Unlocked when correct) -->
+        <div class="success-content" id="successContent">
+            <div class="main-heart"></div>
+            <h2 class="success-title">Correct! 🥰</h2>
+            <p>You guessed it! Moaz loves you more than words can express. You are his forever and always! 💖✨</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Generate continuous floating background hearts
+        function createFloatingHeart() {
+            const container = document.getElementById('heartsContainer');
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+
+            const size = Math.random() * 20 + 10;
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 4 + 4;
+            heart.style.animationDuration = duration + 's';
+            
+            const delay = Math.random() * 3;
+            heart.style.animationDelay = delay + 's';
+
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        setInterval(createFloatingHeart, 300);
+
+        // Check user answer
+        function checkAnswer(e) {
+            e.stopPropagation(); // Prevent card burst trigger
+            const inputVal = document.getElementById('answerInput').value.trim().toLowerCase();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (inputVal === 'farah' || inputVal === 'farahh') {
+                document.getElementById('mainContent').style.display = 'none';
+                document.getElementById('successContent').style.display = 'block';
+                
+                // Trigger massive confetti-like heart burst
+                for(let i=0; i<15; i++) {
+                    setTimeout(() => {
+                        createRandomBurst();
+                    }, i * 100);
+                }
+            } else {
+                errorMsg.textContent = "❌ Oops! Try again, that's not right!";
+                setTimeout(() => {
+                    errorMsg.textContent = "";
+                }, 2500);
+            }
+        }
+
+        // Allow pressing 'Enter' to submit
+        document.getElementById('answerInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkAnswer(e);
+            }
+        });
+
+        // Interactive Click/Touch Heart Burst Effect
+        function createHeartBurst(e) {
+            // Don't trigger burst if clicking inside the input or button
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+
+            const x = e.clientX;
+            const y = e.clientY;
+
+            for (let i = 0; i < 8; i++) {
+                const burst = document.createElement('div');
+                burst.classList.add('burst-heart');
+                burst.style.left = x + 'px';
+                burst.style.top = y + 'px';
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 40;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+
+                burst.style.setProperty('--tx', tx);
+                burst.style.setProperty('--ty', ty);
+
+                const colors = ['#ff1744', '#ff4d6d', '#ff758c', '#ff8fa3', '#ffb3c1'];
+                burst.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                document.body.appendChild(burst);
+
+                setTimeout(() => {
+                    burst.remove();
+                }, 800);
+            }
+        }
+
+        // Random burst for success screen
+        function createRandomBurst() {
+            const x = window.innerWidth / 2 + (Math.random() * 200 - 100);
+            const y = window.innerHeight / 2 + (Math.random() * 200 - 100);
+
+            for (let i = 0; i < 5; i++) {
+                const burst = document.createElement('div');
+                burst.classList.add('burst-heart');
+                burst.style.left = x + 'px';
+                burst.style.top = y + 'px';
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 120 + 50;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+
+                burst.style.setProperty('--tx', tx);
+                burst.style.setProperty('--ty', ty);
+
+                burst.style.background = '#ff1744';
+                document.body.appendChild(burst);
+
+                setTimeout(() => {
+                    burst.remove();
+                }, 800);
+            }
+        }
+    </script>
+</body>
+</html>
